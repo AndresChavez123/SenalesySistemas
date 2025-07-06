@@ -30,16 +30,21 @@ if option == "Pulso rectangular":
     st.write("**Pulso rectangular:** Duración de 1 segundo")
 else:
     uploaded_file = st.sidebar.file_uploader("Suba archivo WAV (5s)", type=["wav"])
-    if uploaded_file is not None:
-        fs, m = wavfile.read(uploaded_file)
-        if len(m.shape) > 1:
-            m = m[:, 0]  # Solo un canal
-        t = np.arange(len(m)) / fs
-        m = m / np.max(np.abs(m))  # Normalizar
-        st.write(f"**Audio cargado:** {uploaded_file.name}")
-    else:
-        st.warning("⚠️ Cargue un archivo WAV de máximo 5 segundos.")
-        st.stop()
+if uploaded_file is not None:
+    fs, m = wavfile.read(uploaded_file)
+    if len(m.shape) > 1:
+        m = m[:, 0]  # Solo un canal
+    t = np.arange(len(m)) / fs
+    m = m / np.max(np.abs(m))  # Normalizar
+    st.write(f"**Audio cargado:** {uploaded_file.name}")
+
+    # 👇 Nuevo: reproductor de audio
+    st.audio(uploaded_file, format='audio/wav')
+
+else:
+    st.warning("⚠️ Cargue un archivo WAV de máximo 5 segundos.")
+    st.stop()
+
 
 # Mostrar señal original
 fig, ax = plt.subplots()
