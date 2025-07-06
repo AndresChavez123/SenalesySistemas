@@ -72,8 +72,9 @@ fig_bode.update_layout(title="Diagrama de Bode", xaxis_title='Frecuencia [rad/s]
 st.plotly_chart(fig_bode, use_container_width=True)
 
 st.subheader("🌀 Diagrama de Polos y Ceros")
-fig_pz = ctrl.pzmap(sistema)
-st.pyplot(fig_pz)
+plt.figure()
+ctrl.pzmap(sistema)
+st.pyplot(plt)
 
 st.subheader("📦 Estimación de Componentes Equivalentes")
 st.latex(f"\text{{Masa }} m = {m:.2f}")
