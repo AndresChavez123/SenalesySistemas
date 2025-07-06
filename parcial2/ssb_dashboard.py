@@ -47,6 +47,12 @@ ax.plot(t, m)
 ax.set_title("Señal mensaje m(t)")
 ax.set_xlabel("Tiempo [s]")
 ax.set_ylabel("Amplitud")
+
+# NUEVO: límites y rejilla
+ax.set_xlim([0, duration])
+ax.set_ylim([-0.2, 1.2])
+ax.grid(True)
+
 st.pyplot(fig)
 
 # Modulación SSB-AM
