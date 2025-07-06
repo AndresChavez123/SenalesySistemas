@@ -76,7 +76,7 @@ st.plotly_chart(fig_bode, use_container_width=True)
 
 st.subheader("🌀 Diagrama de Polos y Ceros")
 fig_pz, ax_pz = plt.subplots()
-ctrl.pzmap(sistema, Plot=True, ax=ax_pz)
+ctrl.pzmap(sistema, Plot=True)
 st.pyplot(fig_pz)
 
 st.subheader("📦 Estimación de Componentes Equivalentes")
