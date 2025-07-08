@@ -51,13 +51,6 @@ if lazo == "Lazo Cerrado":
     sistema = ctrl.feedback(sistema, 1)
 
 # ================================
-# ⚠️ Verificación de estabilidad
-# ================================
-poles = ctrl.pole(sistema)
-if any(np.real(p) >= 0 for p in poles):
-    st.warning("⚠️ El sistema es inestable o marginalmente estable. Algunos parámetros temporales pueden no ser válidos.")
-
-# ================================
 # 📐 Cálculo de parámetros temporales
 # ================================
 info = ctrl.step_info(sistema)
@@ -115,21 +108,14 @@ except Exception as e:
     st.error(f"Ocurrió un error al calcular la respuesta a la rampa: {e}")
 
 # ================================
-# 🎯 Parámetros Temporales (Validados)
+# 🎯 Parámetros Temporales
 # ================================
 st.subheader("🎯 Parámetros Temporales")
-
-def mostrar_parametro(nombre, valor, unidad=""):
-    if isinstance(valor, (int, float)) and not np.isnan(valor) and np.isfinite(valor) and abs(valor) < 1e6:
-        st.write(f"**{nombre}:** {valor:.3f} {unidad}")
-    else:
-        st.write(f"**{nombre}:** No definido")
-
-mostrar_parametro("Tiempo de subida", info.get("RiseTime"), "s")
-mostrar_parametro("Tiempo de establecimiento", info.get("SettlingTime"), "s")
-mostrar_parametro("Sobreimpulso", info.get("Overshoot"), "%")
-mostrar_parametro("Tiempo del sobreimpulso", info.get("PeakTime"), "s")
-mostrar_parametro("Valor pico", info.get("Peak"))
+st.write(f"**Tiempo de subida:** {info['RiseTime']:.3f} s")
+st.write(f"**Tiempo de establecimiento:** {info['SettlingTime']:.3f} s")
+st.write(f"**Sobreimpulso:** {info['Overshoot']:.2f} %")
+st.write(f"**Tiempo del sobreimpulso:** {info['PeakTime']:.3f} s")
+st.write(f"**Valor pico:** {info['Peak']:.3f}")
 
 # ================================
 # 📊 Diagrama de Bode
