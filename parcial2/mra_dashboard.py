@@ -90,18 +90,22 @@ ax_imp.set_ylabel("Salida")
 st.pyplot(fig_imp)
 
 # ================================
-# 🟢 Respuesta a la Rampa
+# 🟢 Respuesta a la Rampa (Corregida)
 # ================================
 st.subheader("📈 Respuesta a la Rampa")
-t_rampa = np.linspace(0, 10, 500)
-u_rampa = t_rampa
-t_out, y_rampa, _ = ctrl.forced_response(sistema, T=t_rampa, U=u_rampa)
-fig_rampa, ax_rampa = plt.subplots()
-ax_rampa.plot(t_out, y_rampa)
-ax_rampa.set_title("Respuesta a la Rampa")
-ax_rampa.set_xlabel("Tiempo [s]")
-ax_rampa.set_ylabel("Salida")
-st.pyplot(fig_rampa)
+try:
+    t_rampa = np.linspace(0, 10, 500)
+    u_rampa = t_rampa
+    t_out, y_rampa = ctrl.forced_response(sistema, T=t_rampa, U=u_rampa)
+
+    fig_rampa, ax_rampa = plt.subplots()
+    ax_rampa.plot(t_out, y_rampa)
+    ax_rampa.set_title("Respuesta a la Rampa")
+    ax_rampa.set_xlabel("Tiempo [s]")
+    ax_rampa.set_ylabel("Salida")
+    st.pyplot(fig_rampa)
+except Exception as e:
+    st.error(f"Ocurrió un error al calcular la respuesta a la rampa: {e}")
 
 # ================================
 # 🎯 Parámetros Temporales
